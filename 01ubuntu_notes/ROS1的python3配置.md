@@ -120,6 +120,18 @@ Ros2 play record ros1 的rosbag
 https://index.ros.org/doc/ros2/Tutorials/Rosbag-with-ROS1-Bridge/
 ```
 
+# 遇到问题总结：
+
+#### 1. ModuleNotFoundError: No module named 'em'
+
+在安装编译ROS的时候是链接python3，但报错是2.7package无法找到包。在实际安装em相关的包时，只需装到python3就行。解决命令：
+
+`sudo apt-get install python3-empy`
+
+
+
+
+
 # Note
 
 需要注意的是，即使使用的virtualenv中，python指向的是python3，但是只要不在.py文件中添加python3的shebang，`rosrun`还是会调用python2的。这样可以很方便地兼容原来Python2的Package。
