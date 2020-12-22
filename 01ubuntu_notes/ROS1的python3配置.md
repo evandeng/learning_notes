@@ -6,6 +6,8 @@ ubuntu18.04+ROS1+python3+cv2+cv_bridge
 
 为了尽量在装包的时候不损坏外部环境，建议用户使用virtualenv。基本流程：
 
+请参考【配置虚拟环境专栏】
+
 ```
 # 安装pip3
 sudo apt-get install python3-pip
