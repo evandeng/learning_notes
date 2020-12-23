@@ -141,3 +141,15 @@ make clean
 make && make install 
 ```
 
+3. 安装make install报错时
+
+安装依赖(非必要，可跳过此步骤，如在出错在执行本步骤)
+
+执行下列命令安装依赖过程中，如有提示，一律“y”。
+
+```
+sudo apt-get install python-dev
+sudo apt-get install libffi-dev
+sudo apt-get install libssl-dev
+sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev
+```

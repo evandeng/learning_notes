@@ -51,6 +51,15 @@ deactivate
 
 最新安装网址`http://wiki.ros.org/noetic/Installation`。选择自己系统对应的版本18.04是 [ROS Melodic installation](http://wiki.ros.org/melodic/Installation)
 
+如果安装速度特别慢，首先，在安装之前建议更换源，教程很多，可自行百度
+然后就可以根据官网教程开始了
+但是！进行到
+Step 1.2 Setup your sources.list这一步时
+可以 更新ROS服务器为中国科技大学，速度就会变快很多很多，后面的再接着官网教程即可
+具体操作：
+
+`sudo sh -c 'echo "deb http://mirrors.ustc.edu.cn/ros/ubuntu/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'`
+
 **安装ROS后，先不要进入ROS tutorials**.
 
 #### 四、配置ros环境
@@ -130,7 +139,58 @@ https://index.ros.org/doc/ros2/Tutorials/Rosbag-with-ROS1-Bridge/
 
 `sudo apt-get install python3-empy`
 
+#### 2. rosinit 报错
 
+```
+#打开hosts文件
+sudo gedit /etc/hosts
+#在文件末尾添加
+151.101.84.133  raw.githubusercontent.com
+#保存后退出再尝试
+```
+
+#### 3. catkin_make的时候could not find the following boost library
+
+it seems that the boost_python3 libraries names got changed. 解决[链接](https://answers.ros.org/question/344951/could-not-find-the-following-boost-libraries-boost_python3/)
+
+```
+cd /usr/lib/x86_64-linux-gnu
+sudo ln -s libboost_python-py35.so libboost_python3.so
+sudo ln -s libboost_python-py35.a libboost_python3.a
+```
+
+#### 4. python3中无法import cv2
+
+因为当初安装cv2的时候，默认弄在了Python2，所以导致这个错误的产生，解决办法在这篇[文章](https://stackoverflow.com/questions/43019951/after-install-ros-kinetic-cannot-import-opencv)中被找到。。不过里面的解决办法太多，好多都不行，只有这个成功使用，所以建议还是看我这个接下来的[解决办法](https://blog.csdn.net/shaoyou223/article/details/82862051)
+
+1 先进入包，不过有的ubuntu系统中的python3.5这里只有dist-packages，所以要把site-packages改成dist-packages,具体的你看自己电脑有那个文件夹
+
+```
+cd /usr/local/lib/python3.5/site-packages/
+```
+
+2 如果是虚拟机的话，就用下面的命令，否则直接跳到第三行命令
+
+```
+cd ~/.virtualenvs/cv/lib/python3.5/site-packages/
+```
+
+3 同理，这里的site-packages如果要修改的话，一并修改了。
+
+```
+#试了没用
+ln -sf /usr/local/lib/python3.5/site-packages/cv2.so cv2.so
+#试了可以
+sudo mv /usr/local/lib/python3.5/site-packages/cv2.so cv2.so
+```
+
+ 
+
+不过这个解决办法有一点小问题就是只有在这个site-packages文件夹下打开才可以import cv2，否则还是会出错，所以只能抛出我的大杀器：
+
+   sys.path.remove('/opt/ros/kinetic/lib/python2.7/dist-packages')
+
+世界从此安静。
 
 
 

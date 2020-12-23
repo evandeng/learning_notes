@@ -85,7 +85,25 @@ root@xyy-Lenovo-G450:~# source /home/xyy/py3env/bin/activate
 
 ```
 (py2env)root@xyy-Lenovo-G450:~# deactivate 
-root@xyy-Lenovo-G450:~# 
+root@xyy-Lenovo-G450:~#
+```
+
+#### 3. 只安装virtualenv
+
+当安装virtualenvwrapper出现问题时候，只是用virtualenv创建虚拟环境，使用时：
+
+```
+virtualenv -p /usr/bin/python2.7 venv
+virtualenv --system-site-packages venv
+virtualenv --no-site-packages venv
+virtualenv -p /usr/bin/python2 --no-site-packages venv
+```
+
+激活和退出虚拟环境
+
+```
+source ~/.virtualenv/py35/bin/activate
+deactivate
 ```
 
 
@@ -111,3 +129,12 @@ sudo apt-get install python-distutils
 
 这里不要慌 ，经过多方面测试，只要执行一条语句便解决
 sudo apt install --reinstall python3-pkg-resources python3-setuptools
+
+##### 3. virtualenv打开出错，dist:Optional[distribution]=none
+
+版本问题。
+
+```
+pip3 install --upgrade virtualenv==16.7.9
+```
+
