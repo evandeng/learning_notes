@@ -107,3 +107,7 @@ sudo apt-get install python-distutils
 
 重新创建,创建成功
 
+##### 2. could not import hook_loader
+
+这里不要慌 ，经过多方面测试，只要执行一条语句便解决
+sudo apt install --reinstall python3-pkg-resources python3-setuptools

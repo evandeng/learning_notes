@@ -35,7 +35,11 @@ sudo gedit /etc/modprobe.d/blacklist-nouveau.conf
 往文中写入参数：
 
 ```
-blacklist nouveau blacklist lbm-nouveau options nouveau modeset=0 alias nouveau off alias lbm-nouveau off
+blacklist nouveau
+blacklist lbm-nouveau
+options nouveau modeset=0
+alias nouveau off
+alias lbm-nouveau off
 ```
 
 　　保存并退出。这一步是为了禁掉Ubuntu自带开源驱动nouveau。之后sudo reboot重启系统。在终端执行命令：
@@ -45,6 +49,12 @@ lsmod | grep nouveau
 ```
 
 　　查看nouveau模块是否被加载。如果什么都没输出，则执行下一步。 
+
+```
+#如果nouveau禁用不了，输入下面命令，并reboot
+sudo update-initramfs -u
+```
+
 2.3  给驱动run文件赋予执行权限
 
 ```
