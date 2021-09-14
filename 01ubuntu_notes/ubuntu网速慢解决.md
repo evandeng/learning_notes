@@ -60,3 +60,13 @@ index-url = https://pypi.tuna.tsinghua.edu.cn/simple
 
 保存退出即可
 
+
+
+## window下
+
+#### Github.com 连接不畅问题记录
+
+[(2条消息) Github.com 连接不畅问题记录_机器人147的博客-CSDN博客_github.com 花了太长时间进行响应](https://blog.csdn.net/qq_45232902/article/details/115435212)
+
+
+

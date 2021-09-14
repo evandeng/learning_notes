@@ -98,3 +98,76 @@ sudo /etc/init.d/lightdm start   ``//打开图形界面
 ```
 
 启动进入系统后，就可以正常使用了。需要注意的是，由于生成的密钥添加到了内核的信任列表中，所以对生成的私钥和公钥一定要妥善保管。
+
+
+
+--以下为备份
+
+#### 安装nvidia驱动
+
+##### **1. 使用 Ubuntu 软件仓库中的稳定版本安装**
+
+查看显卡硬件型号；
+
+在终端输入：`ubuntu-drivers devices`，可以看到显卡型号和推荐安装的版本。
+
+- 如果同意安装推荐版本，那我们只需要终端输入：`sudo ubuntu-drivers autoinstall` 就可以自动安装了。
+- 当然我们也可以使用 apt 命令安装自己想要安装的版本，比如我想安装 `340` 这个版本号的版本，终端输入：`sudo apt install nvidia-340` 就自动安装了。
+- 安装过程中按照提示操作，除非你知道每个提示的真实含义，否则所有的提示都选择默认就可以了，安装完成后重启系统，NVIDIA 显卡就可以正常工作了。安装完成后你可以参照 `https://linuxconfig.org/benchmark-your-graphics-card-on-linux` 上的介绍测试你的显卡。
+
+##### 2. 在software&update里安装
+
+显卡驱动最简单的安装方法就是在 `software & updates` 软件中，`Additional Drivers` 选项下，系统会自动检测你电脑的显卡驱动，点击选择你显卡的驱动应用就可以了。
+
+##### **3. 使用 PPA 第三方软件仓库安装最新版本**
+
+- 添加 PPA 软件仓库：`sudo add-apt-repository ppa:graphics-drivers/ppa`，需要输入用户密码，按照提示还需要按下 Enter 键。
+- 更新软件索引：`sudo apt update`
+- 接下来的步骤同方法一，只是这样我们就可以选择安装最新版本的驱动程序了。
+
+##### 4. **从 NVIDIA 官网下载最新版驱动手动安装**
+
+打开终端，输入：`lshw -numeric -C display`，确认自己电脑显卡的型号。
+
+确认显卡型号后，到 NVIDIA 的官网下载相应型号的驱动，官网地址是：`https://www.nvidia.com/Download/index.aspx`
+
+选好后点击 SEARCH 按钮搜索相应的驱动。
+
+接着需要先安装一些 NVIDIA 显卡依赖的软件，在终端依次执行如下命令：
+
+- `sudo dpkg --add-architecture i386`
+- `sudo apt update`
+- `sudo apt install build-essential libc6:i386`
+
+Ubuntu 系统默认安装好是使用的一个开源的驱动：`nouveau`，我们要安装官方的驱动需要先禁用这个开源驱动，方法如下，依次执行：
+
+- `sudo bash -c "echo blacklist nouveau > /etc/modprobe.d/blacklist-nvidia-nouveau.conf"`
+- `sudo bash -c "echo options nouveau modeset=0 >> /etc/modprobe.d/blacklist-nvidia-nouveau.conf"`
+
+执行完上面两条指令后，我们使用如下命令看看是否成功禁用了开源驱动：`cat /etc/modprobe.d/blacklist-nvidia-nouveau.conf`。如果和下面一样，表示成功了。
+
+```text
+$ cat /etc/modprobe.d/blacklist-nvidia-nouveau.conf
+blacklist nouveau
+options nouveau modeset=0
+```
+
+这个时候我们需要先重启一下系统，重启吧。
+
+重启成功后打开终端，输入如下命令：`sudo telinit 3`。然后按快捷键：`CTRL+ALT+F1` 进入字符界面，输入用户名和密码，然后登录系统，进入我们保存下载 NVIDIA 驱动的目录，默认是：`Downloads/` 目录，`cd Downloads/`，然后执行：`bash NVIDIA-Linux-x86_64-418.43.bin`。注意：`NVIDIA-Linux-x86_64-418.43.bin` 要根据你下载的驱动文件的名字相应改动。
+
+安装过程中都点同意即可，如果你遇到下面的提示，安装下面我的输入输入后回车继续安装：
+
+The distribution-provided pre-install script failed!
+Are you sure you want to continue? -> **CONTINUE INSTALLATION**
+Would you like to run the nvidia-xconfig utility? -> **YES**
+
+安装完成后重启系统就可以点击软件列表中的 NVIDIA 的配置软件配置显卡驱动了，如果你遇到如下报错，请依次在终端输入如下命令解决：
+
+- 报错：WARNING: Unable to find suitable destination to install 32-bit compatibility libraries
+
+- 解决办法：
+
+- - sudo dpkg --add-architecture i386
+  - sudo apt update
+  - sudo apt install libc6:i386

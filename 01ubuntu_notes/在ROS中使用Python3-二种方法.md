@@ -54,14 +54,12 @@ Type "help", "copyright", "credits" or "license" for more information.
 ```
 sudo apt-get purge ros-*
 sudo apt-get autoremove
-12
 ```
 
 创建ROS工作空间
 
 ```
 mkdir ros
-1
 ```
 
 创建Python3环境
@@ -72,7 +70,6 @@ cd ros
 sudo rm -rf /usr/bin/python
 sudo ln -s /usr/bin/python3.5 /usr/bin/python
 sudo apt install python3-pip
-12345
 ```
 
 安装ros的编译基础软件包
@@ -80,7 +77,6 @@ sudo apt install python3-pip
 ```bash
 sudo apt-get install python3-rosdep python3-rosinstall-generator python3-wstool python3-rosinstall build-essential
 sudo pip3 install catkin_pkg
-12
 ```
 
 开始下载相关软件包

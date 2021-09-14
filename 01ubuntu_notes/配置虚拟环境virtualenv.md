@@ -23,6 +23,8 @@ source ~/.bashrc
 	source ~/.local/bin/virtualenvwrapper.sh
 # 创建虚拟环境
 mkvirtualenv --python=/usr/local/python3.6 venv
+mkvirtualenv --python=/usr/local/python3.5.3/bin/python venv
+virtualenv -p /usr/bin/python2 --no-site-packages venv
 
 # 其他命令。激活/退出/删除虚拟环境
 workon venv
