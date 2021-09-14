@@ -4,7 +4,7 @@
 # 初始化 git 文件夹
 git init
 git add *
-git comment -m "note some something for this modify"
+git commit -m "note some something for this modify"
 ```
 
 <img src="images/git_theory.png" width="480" alt="Campus_Intersection"/>
